@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+	<servlet>
+	    <servlet-name>EasyGraderServiceImpl</servlet-name>
+		<servlet-class>edu.gac.mcs287.EasyGrader.server.EasyGraderServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EasyGraderServiceImpl</servlet-name>
+	    <url-pattern>/easygrader/easygraderservice</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>LoginService</servlet-name>
+		<servlet-class>edu.gac.mcs287.EasyGrader.server.LoginService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>LoginService</servlet-name>
+	    <url-pattern>/EasyGrader/loginservice</url-pattern>
+	</servlet-mapping>
+	
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Welcome.html</welcome-file>
+  </welcome-file-list>
+  
+
+</web-app>

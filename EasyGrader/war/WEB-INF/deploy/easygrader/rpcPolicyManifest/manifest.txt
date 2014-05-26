@@ -1,0 +1,3 @@
+# Module easygrader
+# RPC service class, partial path of RPC policy file
+edu.gac.mcs287.EasyGrader.client.EasyGraderService, C76AA6B697D3A32A38FA5535E087044D.gwt.rpc

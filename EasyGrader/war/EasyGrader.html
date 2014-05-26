@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="easygrader.css"/>
+	<title>Easy Grader 1</title>
+
+	<script type="text/javascript" language="javascript" src="easygrader/easygrader.nocache.js"></script>
+	<script type = "text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	
+		var originalAddFormDiv = $("#addFormDiv").clone();
+		
+
+		var optionsAsString = "";
+		for (var i = 0; i < 101; i+=5) {
+			optionsAsString+= "<option value = '" + i + "'>" + i + "</option>";
+		}
+		var scoreBox = $("#score");
+		scoreBox.append(optionsAsString);
+		var subCat = $("<div id = 'sub0' class = 'subcat'><button type = 'button' class = 'hideCategory'>-</button><input type = 'text' class = 'subcategory' value = ''></div>");
+		
+
+		$(subCat).append(scoreBox.clone(true));
+
+		var subcategoryButtonClick = function(e){
+			//grab the subcategory div that corresponds to the pushed button
+			var divObject = $(e.target).parent();
+			var catid = divObject.attr('id');
+			catid = catid.slice(-1);
+			console.log(catid);
+
+			//reference the subcategory div object
+			var subcategoryDiv = divObject.children('div');
+
+			//if it already has children
+			if(subcategoryDiv.children().length > 0){
+				//grab the last one
+				var lastSubcat = subcategoryDiv.children('.subcat:last');
+				//create the new index
+				var prevIndex = lastSubcat.attr("id");
+				var nextIndex = parseInt(prevIndex.slice(-1))+1;
+				//clone it
+				var nextSubcat = subCat.clone();
+				nextSubcat.children('.hideCategory').mousedown(hideCategory);
+				//set the id of the cloned one
+				nextSubcat.attr("id", "sub"+catid + nextIndex);
+				//insert the clone one after the last
+				nextSubcat.insertAfter(lastSubcat);
+			}
+			else{
+				//there were no categories
+				subcategoryDiv.css('margin-left', '200px');
+				//create the new div
+				var newSubCat = subCat.clone(true);
+				newSubCat.attr('id', "sub"+catid + '0' );
+				newSubCat.children('.hideCategory').mousedown(hideCategory);
+				subcategoryDiv.append(newSubCat);
+
+				
+			}
+		};
+
+		var hideCategory = function(e){
+			var divObject = $(e.target).parent();
+			var higherDivObject = divObject.parent();
+			divObject.addClass('hidden');
+			
+			
+			
+		}
+
+		var categories = 1;
+		
+
+		//$("#score").append(optionsAsString);
+		$('.addCategory').mousedown(function(){
+			
+			var newCategoryDiv = clonedCatDiv.clone();
+			newCategoryDiv.children('#addSubCategory').mousedown(subcategoryButtonClick);
+			newCategoryDiv.children('.hideCategory').mousedown(hideCategory);
+			newCategoryDiv.insertAfter("div.c:last");
+			newCategoryDiv.attr("id", "c" + categories);
+
+			// var lastTextbox = $('.c').get(-1);
+			// var newTextbox = $('#c0').clone(true);
+			// var lastSelect = $('.s').get(-1);
+			// var newSelect = $('#s0').clone(true);
+			// newTextbox.val("");
+			// newTextbox.attr("id", "c"+categories);
+			// newSelect.attr("id", "s"+categories);
+
+			// newTextbox.insertAfter(lastTextbox);
+			// newSelect.insertAfter(lastTextbox);
+			// $("<br/>").insertAfter(lastTextbox);
+			// categories++;
+			categories++;
+		});
+
+		var clonedCatDiv = $("#c0").clone();
+
+		
+		
+		$('#addSubCategory').mousedown(subcategoryButtonClick);
+
+		$('.hideCategory').mousedown(hideCategory);
+
+	document.subClicked = function subClicked(){
+		
+  		$('#addFormDiv').replaceWith(originalAddFormDiv.clone());
+			var categories = 1;
+			
+			var optionsAsString = "";
+			for (var i = 0; i < 101; i+=5) {
+				optionsAsString+= "<option value = '" + i + "'>" + i + "</option>";
+			}
+			var scoreBox = $("#score");
+			scoreBox.append(optionsAsString);
+			console.log("yes");
+			console.log(originalAddFormDiv.clone());
+		}
+	});
+	</script>
+	
+</head>
+<body>
+	<div id = "containter">
+		<div class = "header"> 
+			<h1 id = "heading">Easy Grader</h1>
+		</div>
+		
+		<div class = "sidebar">
+			
+		<br>
+			<button type = "button" id = "viewFormButton">View Forms</button>
+		<br>
+			<button type = "button" id= "newFormButton">Create Form</button>
+		</div>
+	<div class = "mainbody">
+				
+		
+		<div id = "welcomeDiv">	
+			
+			
+		</div>
+		
+		
+		
+		<div id = "addFormDiv" class = "hidden" >
+			
+
+			Title 
+			<br>
+			<input type="text" id="title" value=""/>
+		
+			
+			<br><br>
+			
+			Categories
+			<hr>
+			<div id = "categoryDiv">
+				<div id = "c0" class = "c">
+					<select id = "score" class = "score">
+					</select>
+					<input type="text" id="title" class = "category" value = "">
+					<button type = "button" class = "hideCategory">-</button>
+					<div id = 'subcategoryDiv'>
+					</div>
+					<button type = "button" id= "addSubCategory">+ subcategory</button>
+					<hr>
+				</div>
+				
+				<button type = "button" class = "addCategory">+</button>
+			</div>
+			<hr>
+			
+			
+			<br>
+				Description<br>
+				<textarea id = "description" style = "width:400px; height:100px;"></textarea>
+			
+			
+			<br>
+		
+			<br>
+			
+			<button type = "button" id = "sub">Submit</button>	
+		</div>
+		<div id = "fillOutFormDiv" class = "hidden"></div>
+		<div id = "viewFormsDiv" class = "hidden"></div>
+	</div>
+	
+	<iframe id="__printingFrame" style="width:0;height:0;border:0"></iframe>
+</div>
+</body>
+</html>
