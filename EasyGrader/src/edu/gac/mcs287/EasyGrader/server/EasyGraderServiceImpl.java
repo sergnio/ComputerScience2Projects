@@ -23,13 +23,13 @@ public class EasyGraderServiceImpl extends RemoteServiceServlet implements
 		return EasyGraderModel.getFormsFromServer();
 
 	}
-	
-	public String getLogOutUrl(){
+
+	public String getLogOutUrl() {
 		UserService userService = UserServiceFactory.getUserService();
 		return userService.createLogoutURL("../Welcome.html");
 	}
 
-	public String setAppBaseURL(String homeURL){
+	public String setAppBaseURL(String homeURL) {
 		EasyGraderModel.setAppBaseURL(homeURL);
 		return null;
 	}
@@ -37,15 +37,14 @@ public class EasyGraderServiceImpl extends RemoteServiceServlet implements
 	public Boolean isUserLoggedIn() {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
-		return new Boolean(user!=null);
+		return new Boolean(user != null);
 	}
 
-
+	// Implementation for deleting form from database
 	@Override
 	public String deleteFormFromDB(Form form) {
 		EasyGraderModel.deleteForm(form);
 		return null;
 	}
-
 
 }

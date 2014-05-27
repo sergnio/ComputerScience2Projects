@@ -7,12 +7,18 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import edu.gac.mcs287.EasyGrader.shared.Form;
 
-@RemoteServiceRelativePath("easygraderservice") 
+// Services for various things.
+@RemoteServiceRelativePath("easygraderservice")
 public interface EasyGraderService extends RemoteService {
 	public String submitFormToServer(Form form);
+
 	public List<Form> getFormsFromServer();
+
 	public Boolean isUserLoggedIn();
+
 	public String getLogOutUrl();
+
 	public String setAppBaseURL(String homeURL);
-	public String deleteFormFromDB(Form form); 
+
+	public String deleteFormFromDB(Form form);
 }

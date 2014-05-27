@@ -41,11 +41,14 @@ public class EasyGraderView {
 		return control;
 	}
 
+	// Instead of changing HTML pages with each button click, this instead hides
+	// all other divs that aren't currently being used. Everything is created on
+	// one single page, but not everything is shown at once.
 	public void setPage(Element div) {
 		Element[] pages = { DOM.getElementById("welcomeDiv"),
 				DOM.getElementById("addFormDiv"),
 				DOM.getElementById("fillOutFormDiv"),
-				DOM.getElementById("viewFormsDiv")};
+				DOM.getElementById("viewFormsDiv") };
 		for (Element e : pages) {
 			System.out.println(div.getId() + " " + e.getId());
 			if (e.getId().equals(div.getId())) {
@@ -56,43 +59,47 @@ public class EasyGraderView {
 		}
 	}
 
+	// Sets the welcome page to the welcomeDiv which is to be displayed.
 	public void viewWelcomePage() {
-		// setWindow("welcome.html");
+
 		setPage(DOM.getElementById("welcomeDiv"));
 		Button newFormButton = Button.wrap(DOM.getElementById("newFormButton"));
 		System.out.println(newFormButton);
 		newFormButton.addClickHandler(new ClickHandler() {
-	
+			// Accesses the add new form div
 			@Override
 			public void onClick(ClickEvent event) {
-	
-				
+
 				viewAddFormPage();
-	
+
 			}
-	
+
 		});
 		Button viewFormsButton = Button.wrap(DOM
 				.getElementById("viewFormButton"));
 		viewFormsButton.addClickHandler(new ClickHandler() {
-	
+
+			// retrieves all of the forms from the database
 			@Override
 			public void onClick(ClickEvent event) {
 				System.out.println("click");
 				control.getFormsFromServer();
-	
+
 			}
-	
+
 		});
 		control.getFormsFromServer();
 	}
 
-	public void viewFormsPage(List<Form> forms){
+	// Accesses the viewFormsDiv which displays all of the forms which were
+	// created.
+	public void viewFormsPage(List<Form> forms) {
 		GWT.log("yep");
 		setPage(DOM.getElementById("viewFormsDiv"));
 		RootPanel viewFormsDivPanel = RootPanel.get("viewFormsDiv");
 		viewFormsDivPanel.clear();
-		
+
+		// Creating buttons for delete and filling out the forms
 		VerticalPanel v = new VerticalPanel();
 		for (final Form form : forms) {
 			HorizontalPanel h = new HorizontalPanel();
@@ -106,46 +113,50 @@ public class EasyGraderView {
 			Button fillOutFormButton = new Button();
 			fillOutFormButton.setText("Fill-out");
 			fillOutFormButton.setTitle("Fill-out");
-			
-			deleteButton.addClickHandler(new ClickHandler(){
-				
+
+			deleteButton.addClickHandler(new ClickHandler() {
+
+				// Deletes the form from the database and refreshes the page.
 				@Override
 				public void onClick(ClickEvent event) {
 					control.handleDeleteRequest(form);
 					control.getFormsFromServer();
 				}
-				});
-			
-			fillOutFormButton.addClickHandler(new ClickHandler(){
-		
-			@Override
-			public void onClick(ClickEvent event) {
-				viewFillOutFormPage(form);
-			}
 			});
-			
-			
-			
+
+			fillOutFormButton.addClickHandler(new ClickHandler() {
+				// Accesses the page where you are able to use the form you
+				// created.
+				@Override
+				public void onClick(ClickEvent event) {
+					viewFillOutFormPage(form);
+				}
+			});
+
 			h.add(title);
 			h.add(date);
 			h.add(deleteButton);
 			h.add(fillOutFormButton);
 			v.add(h);
-			
+
 		}
 		viewFormsDivPanel.add(v);
 	}
 
+	// Views the page which allows you to use the form you created.
 	public void viewFillOutFormPage(Form f) {
 		setPage(DOM.getElementById("fillOutFormDiv"));
 		RootPanel fillOutFormDivPanel = RootPanel.get("fillOutFormDiv");
 		fillOutFormDivPanel.clear();
 		final DialogBox d = new DialogBox();
 		d.hide();
-	
+
 		final VerticalPanel v = new VerticalPanel();
 		HTML title = new HTML("<h1>" + f.getTitle() + "</h1>");
 		v.add(title);
+
+		// Corerectly accesses and displays all the categories and subcategories
+		// which were created
 		for (int i = 0; i < f.getCategories().size(); i++) {
 			Category c = f.getCategories().get(i);
 			HorizontalPanel hp = convertCategory(c);
@@ -157,10 +168,12 @@ public class EasyGraderView {
 				HorizontalPanel shp = convertCategory(s);
 				shp.addStyleName("hpsubcategory");
 				v.add(shp);
-	
+
 			}
-		
+
 		}
+
+		// Comment box, print button, and finish button
 		TextArea comments = new TextArea();
 		comments.setWidth("400px");
 		comments.setHeight("100px");
@@ -170,62 +183,59 @@ public class EasyGraderView {
 		fillOutFormDivPanel.add(v);
 		final Button printButton = new Button("Print");
 		final Button dialogDoneButton = new Button("Done");
-		printButton.addClickHandler(new ClickHandler(){
+		printButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				d.setWidget(null);
-				HorizontalPanel buttonPanel = (HorizontalPanel)v.getWidget(v.getWidgetCount()-1);
+				HorizontalPanel buttonPanel = (HorizontalPanel) v.getWidget(v
+						.getWidgetCount() - 1);
 				buttonPanel.add(dialogDoneButton);
 				d.setWidget(v);
-				printButton.addClickHandler(new ClickHandler(){
+				printButton.addClickHandler(new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						VerticalPanel p = (VerticalPanel)d.getWidget();
-						p.remove(p.getWidgetCount()-1);
+						VerticalPanel p = (VerticalPanel) d.getWidget();
+						p.remove(p.getWidgetCount() - 1);
 						printWidget(d.getWidget());
 						d.hide();
 						control.getFormsFromServer();
-						
+
 					}
-					
+
 				});
-				
-				
+
 				d.show();
-				
-				
+
 			}
-			
+
 		});
-		dialogDoneButton.addClickHandler(new ClickHandler(){
+		dialogDoneButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				d.setWidget(null);
 				d.hide();
 				control.getFormsFromServer();
-				
-				
+
 			}
-			
+
 		});
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.add(printButton);
 		v.add(buttonPanel);
-	
+
 	}
 
+	public void printWidget(Widget widget) {
+		HeadElement headElement = (HeadElement) HeadElement.as(RootPanel
+				.getBodyElement().getParentElement().getFirstChild());
+		String printHTML = "<html>" + headElement.getInnerHTML() + "<body>"
+				+ widget.getElement().getInnerHTML() + "</body></html>";
+		Print.it(printHTML);
+	}
 
-	public void printWidget(Widget widget)
-    {
-            HeadElement headElement = (HeadElement) HeadElement.as(RootPanel.getBodyElement().getParentElement()
-                            .getFirstChild());
-            String printHTML = "<html>" + headElement.getInnerHTML() + "<body>" + widget.getElement().getInnerHTML()
-                            + "</body></html>";
-            Print.it(printHTML);
-    }
 	public void viewAddFormPage() {
 
 		System.out.println("hello");
@@ -301,7 +311,7 @@ public class EasyGraderView {
 				subClicked();
 				control.submitFormToServer(form);
 				viewWelcomePage();
-				
+
 			}
 
 		});
@@ -350,10 +360,10 @@ public class EasyGraderView {
 				subcategories.add(subcat);
 
 			}
-			for(Category s: subcategories){
+			for (Category s : subcategories) {
 				cat.addCategory(s);
 			}
-			
+
 			categories.add(cat);
 
 		}
@@ -369,8 +379,8 @@ public class EasyGraderView {
 		}
 		hp.add(name);
 		hp.add(value);
-		hp.add(new Label("/"+c.getValue()));
-		
+		hp.add(new Label("/" + c.getValue()));
+
 		return hp;
 	}
 

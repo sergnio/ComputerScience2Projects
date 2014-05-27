@@ -44,6 +44,7 @@ public class Form implements Serializable {
 		millis = d.getTime();
 	}
 
+	// Testing for a visual of what a newly created form looks like
 	public void print() {
 		StringBuffer printString = new StringBuffer(title + "\n");
 		for (Category category : this.categories) {
@@ -102,33 +103,28 @@ public class Form implements Serializable {
 		return new Date(millis);
 	}
 
+	// testing
 	public static void main(String[] args) {
 		List<Category> categories = new ArrayList();
 		categories.add(new Category("How awesome is Sergio", 10));
 		categories.add(new Category("Sergio's grade in life", 10));
-		
+
 		categories.get(0).addCategory(new Category("So awesome", 10));
 		categories.get(0).addCategory(new Category("Super awesome", 10));
 		categories.get(0).addCategory(new Category("the best", 10));
-		
+
 		final Form f = new Form("Sergio's form", categories);
-		
-		
-		
+
 		f.setCategories(categories);
-		
-		
+
 		f.print();
 		f.flatten();
 		f.unflatten();
-		
-		
-		
-		
-		
 
 	}
 
+	// used to put all categories and subcategories in one list in order to
+	// properly store and retrieve from the datastore
 	public void flatten() {
 		for (Category c : categories) {
 			flattened.add(c);
@@ -139,6 +135,8 @@ public class Form implements Serializable {
 		System.out.println("after flattened \n" + flattened);
 	}
 
+	// used in order to take all the categories and subcategories out of a list
+	// to properly get them from the datastore.
 	public void unflatten() {
 		categories = new ArrayList<Category>();
 		Category currentCategory = null;
@@ -153,7 +151,7 @@ public class Form implements Serializable {
 				}
 			}
 		}
-		System.out.println("after unflattened \n" +categories);
+		System.out.println("after unflattened \n" + categories);
 	}
 
 }
