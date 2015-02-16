@@ -3,7 +3,8 @@ USER MANUAL
 
 
 ACCESSING THE ONLINE GRADING RUBRIC
-Sign in with any desired and valid Google account
+Sign in with any desired and valid Google account at the address: 
+http://gaceasygrader.appspot.com/
 	Note: If you are already signed into a Google account before opening
 	the web page, it will automatically sign you in. You must then sign
 	out and use the desired Google account.

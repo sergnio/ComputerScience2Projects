@@ -1,46 +1,51 @@
+
 public class GuitarHero {
-	public static void main(String[] args) {
 
-		// initialize the arrays for the number of tones and keys you are able
-		// to use
-		double[] notes = new double[37];
-		GuitarString[] strings = new GuitarString[37];
-		int nextNote;
-		int firstNote = 0;
+    public static void main(String[] args) {
 
-		// create the keyboard string and initialize GuitarStrings to the
-		// corresponding keys
-		String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
-		for (int i = 0; i < 37; i++) {
-			double concert = 440.0 * Math.pow(2, (i - 24) / 12.0);
-			notes[i] = concert;
-			for (int j = 0; j < 37; j++) {
-				strings[j] = new GuitarString(concert);
-			}
-		}
+    	//create the keyboard string.
+        String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+        GuitarString[] guitarStrings = new GuitarString[37];
+        
+        //initialize GuitarStrings corresponding to the keys.
+        for (int i = 0; i<37; i++){
+        	double note = 440 * Math.pow(1.05956, i-24);
+        	GuitarString x = new GuitarString(note);
+        	guitarStrings[i] = x;
+        }
 
-		// the main input loop
-		while (true) {
+        // the main input loop
+        while (true) {
 
-			// check if user types a key, match index of key to keyboard string
-			// if possible
+            // check if the user has typed a key, and, if so, process it
+            if (StdDraw.hasNextKeyTyped()) {
+ 
+                // the user types this character
+                char key = StdDraw.nextKeyTyped();
+                if(keyboard.indexOf(key)!= -1){
+                // pluck the corresponding string
+                	int guitarStringIndex = keyboard.indexOf(key);
+                	guitarStrings[guitarStringIndex].pluck();
+                }
+                
+            }
 
-			if (StdDraw.hasNextKeyTyped()) {
-				char key = StdDraw.nextKeyTyped();
-				int charIndexInKeyboard = keyboard.indexOf(key);
+            // compute the superposition of the samples
+            double sample = 0;
+            for(int i = 0; i<37; i++){
+            	sample += guitarStrings[i].sample();
+            }
 
-				// if the key is not in keyboard string, go to top of loop
-				if (charIndexInKeyboard == -1) {
-					continue;
-				}
-				// play the corresponding note to the key pressed
-				nextNote = keyboard.charAt(charIndexInKeyboard);
-				strings[nextNote].pluck();
-				double sample = strings[firstNote].sample() + strings[nextNote].sample();
-				StdAudio.play(sample);
-				strings[nextNote].tic();
-				firstNote = nextNote;
-			}
-		}
-	}
+            // send the result to standard audio
+            StdAudio.play(sample);
+
+            // advance the simulation of each guitar string by one step
+            for(int i = 0; i<37; i++){
+            	guitarStrings[i].tic();
+            }
+            
+            
+        }
+    }
+
 }
