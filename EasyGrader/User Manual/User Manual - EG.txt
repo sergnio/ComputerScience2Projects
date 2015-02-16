@@ -1,0 +1,51 @@
+USER MANUAL
+
+
+
+ACCESSING THE ONLINE GRADING RUBRIC
+Sign in with any desired and valid Google account
+	Note: If you are already signed into a Google account before opening
+	the web page, it will automatically sign you in. You must then sign
+	out and use the desired Google account.
+
+You will now be redirected to the home page where you will see options to:
+	Create a new grading rubric
+	View your previously made grading rubrics
+	An option to log out of the Google account you are using
+
+
+
+CREATING A NEW RUBRIC
+You are given the option to create a new grading rubric. Each rubric will
+consist of a title (which can be used as a reference when searching for 
+previously made rubrics), a text box which allows you to label your category,
+drop down boxes which are used as grading marks for the entire category, and
+a submit button which will store any text boxes that you have created and 
+written in.
+
+
+ADDING MORE CATEGORIES AND SUBCATEGORIES
+The button below any existing category allows you to create another category,
+where the button on the right allows you to create one subcategory. Any desired
+amount of subcategories are allowed to be created for a category, and also any
+desired amount of categories are allowed to be created.
+On the left side of any subcategory box is a button which allows you to delete
+the unwanted subcategory.
+
+
+VIEWING A RUBRIC
+After having created at least one rubric, you are able to view these by clicking
+on the "View Forms" button. From here you are allowed to use it for grading,
+edit the categories and subcategories, and also delete the rubric. 
+
+
+DELETING A RUBRIC
+Click on the "View Forms" button, then click the button next to the form to be
+deleted. All the contents of the form are removed from the database.
+
+
+USING A RUBRIC
+Click on the "Fill-out" button in order to use your created rubrics. You are able
+then to click the print button to view in a print friendly page. Hit done once
+you are done filling out the rubric and it will take you back to the previous
+page.

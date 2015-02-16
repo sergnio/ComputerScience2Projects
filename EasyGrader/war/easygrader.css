@@ -1,0 +1,36 @@
+@CHARSET "US-ASCII";
+
+#heading{
+	fload: middle;
+}
+
+.sidebar{
+	
+	height: 600px;
+	float: left;	
+
+
+}
+
+.mainbody{
+	float: none;
+
+}
+
+#container {
+    border:1px dashed #000;
+    display: table;
+    width: 100%;
+}
+.mainbody, .sidebar {
+    display: table-cell;
+    
+}
+
+.hidden{
+	display:none;
+}
+
+.hpsubcategory{
+	margin-left:100px;
+}
