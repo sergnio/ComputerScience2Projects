@@ -1,3 +1,4 @@
+
 public class GuitarString {
 	static int samplingRate = 44100;
 	public RingBuffer ringBuffer;

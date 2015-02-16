@@ -1,3 +1,4 @@
+
 public class RingBuffer {
 //instance variables
 	
