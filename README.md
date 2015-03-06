@@ -4,4 +4,4 @@ A collection of my java project coursework from my Intro to Computer Science 2 c
 EasyGrader was a team project completed in my Object-Oriented Software Development course.
 The EasyGrader application can be found at http://gaceasygrader.appspot.com/
 
-Hangman is a Java Application; work is in progress.
+Hangman is a personal Java project; work is in progress.
