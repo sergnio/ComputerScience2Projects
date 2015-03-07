@@ -1,5 +1,7 @@
 # ComputerScience2Projects
-A collection of my java project coursework from my Intro to Computer Science 2 course, and also from my Object-Oriented Software Development course.
+A collection of my java project coursework from my Intro to Computer Science 2 course, along with some other implementations.
 
 EasyGrader was a team project completed in my Object-Oriented Software Development course.
 The EasyGrader application can be found at http://gaceasygrader.appspot.com/
+
+Hangman is a personal Java project; work is in progress.
