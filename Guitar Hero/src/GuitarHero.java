@@ -6,7 +6,7 @@ public class GuitarHero {
     	//create the keyboard string.
         String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
         GuitarString[] guitarStrings = new GuitarString[37];
-        
+
         //initialize GuitarStrings corresponding to the keys.
         for (int i = 0; i<37; i++){
         	double note = 440 * Math.pow(1.05956, i-24);
