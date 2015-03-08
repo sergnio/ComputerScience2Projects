@@ -12,7 +12,7 @@ public class NBody {
 		 
 		 double T = Double.parseDouble(args[0]);
 		 double dT = Double.parseDouble(args[1]);
-		 
+
 		 int N = StdIn.readInt();
 		 double r = StdIn.readDouble();
 		 
